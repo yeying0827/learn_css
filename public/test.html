@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BFC：清除浮动</title>
+    <style>
+        .content {
+            width: 200px;
+            background-color: #aabbcc;
+            overflow: hidden;
+        }
+        .child1 {
+            width: 80px;
+            height: 100px;
+            margin: 10px;
+            background-color: green;
+        }
+        .child2 {
+            float: left;
+            width: 10px;
+            height: 10px;
+            margin: 10px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="child1"></div>
+    <div class="child1"><div>123</div></div>
+    <div class="child2"></div>
+</div>
+<div style="background: #ffcc00; width: 500px;">
+    <div style="background: aquamarine;">
+        <span>普通节点中的内容</span>
+    </div>
+    <div style="float: left; width: 300px; background: #33cc99;">
+        <span>浮动节点中的内容</span>
+    </div>
+</div>
+
+<div style="background: #ffcc00; width: 500px;">
+    <div style="float: left; width: 300px; background: #33cc99;">
+        <span>浮动节点中的内容</span>
+    </div>
+    <div style="background: aquamarine;">
+        <span>普通节点中的内容</span>
+    </div>
+</div>
+
+<div style="display: flex; width: 500px;">
+    <div style="display: flex; width: 100%; margin-left: 20px; background: #ffcc00;">sfsdfsd</div>
+    <div style="display: flex; width: 100%; margin-left: 20px; background: #ffcc00;">sfsdfsd</div>
+    <div style="display: flex; width: 100%; margin-left: 20px; background: #ffcc00;">sfsdfsd</div>
+    <div style="display: flex; width: 100%; margin-left: 20px; background: #ffcc00;">sfsdfsd</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实战篇</title>
+</head>
+<body>
+<h2>15. 变量控件</h2>
+<div class="magnifier">
+
+</div>
+<script>
+    const magnifier = document.querySelector('.magnifier');
+    magnifier.addEventListener("mousemove", event => {
+        event.target.style.setProperty("--x", `${event.offsetX}px`);
+        event.target.style.setProperty("--y", `${event.offsetY}px`);
+    });
+</script>
+<div class="dynamic-scroll-bg">
+    <header></header>
+    <main>
+        <div>
+            <p>网易公司（NASDAQ:
+                NTES），1997年由创始人兼CEO丁磊先生在广州创办，2000年在美国NASDAQ股票交易所挂牌上市，是中国领先的互联网技术公司。在开发互联网应用、服务及其它技术方面，始终保持中国业界领先地位。本着对中国互联网发展强烈的使命感，缔造美好生活的愿景，网易利用最先进的互联网技术，加强人与人之间信息的交流和共享。
+            </p>
+            <p>网易公司推出了门户网站、在线游戏、电子邮箱、在线教育、电子商务、在线音乐、网易bobo等多种服务。网易在广州天河智慧城的总部项目计划2019年1月建成，网易游戏总部将入驻。2016年，游戏业务营业收入在网易总营收中占比73.3%。2011年，网易杭州研究院启用。网易传媒等业务在北京。网易在杭州上线了网易考拉海购、网易云音乐等项目。
+            </p>
+            <p>网易2019全年财报显示，网易公司2019年全年净收入为592.4亿元；基于非美国通用会计准则，归属于网易公司股东的持续经营净利润为156.6亿元。</p>
+            <p>2019年，网易深入推进战略聚焦，坚守内容消费领域，积极布局游戏、教育、音乐、电商等核心赛道，取得重大突破。在保持稳健增长的同时，网易有道、创新及其他等业务板块爆发强大潜力，为未来的长期发展提供源源不断的动能。
+            </p>
+        </div>
+    </main>
+</div>
+<script>
+    const bg = document.querySelector('.dynamic-scroll-bg');
+    const content = bg.querySelector('main');
+    content.addEventListener("scroll", event => {
+        const top = event.target.scrollTop;
+        if(top <= 250) {
+            bg.style.setProperty("--scrolly", 250 - top);
+        } else {
+            bg.style.setProperty("--scrolly", 0);
+        }
+    });
+</script>
+<h2>14. 表单控件</h2>
+<div class="auth">
+    <input type="radio" name="auth" id="login-btn" checked hidden>
+    <input type="radio" name="auth" id="logon-btn" hidden>
+    <div class="auth-title">
+        <label for="login-btn">登录</label>
+        <label for="logon-btn">注册</label>
+        <em></em>
+    </div>
+    <div class="auth-form">
+        <form>
+            <div>
+                <input type="text" placeholder="请输入手机号" pattern="^1[3456789]\d{9}$" required>
+                <label>手机</label>
+            </div>
+            <div>
+                <input type="password" placeholder="请输入密码（6到20位字符）" pattern="^[\dA-Za-z_]{6,20}$" required>
+                <label>密码</label>
+            </div>
+            <button type="button">登录</button>
+        </form>
+        <form>
+            <div>
+                <input type="text" placeholder="请输入手机号" pattern="^1[3456789]\d{9}$" required>
+                <label>手机</label>
+            </div>
+            <div>
+                <input type="password" placeholder="请输入密码（6到20位字符）" pattern="^[\dA-Za-z_]{6,20}$" required>
+                <label>密码</label>
+            </div>
+            <button type="button">注册</button>
+        </form>
+    </div>
+</div>
+<h2>13. 切换控件</h2>
+<h3>手风琴</h3>
+<ul class="accordion">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<h3>折叠面板</h3>
+<div class="v-accordion">
+    <input type="checkbox" id="collapse1" hidden>
+    <input type="checkbox" id="collapse2" hidden>
+    <input type="checkbox" id="collapse3" hidden>
+    <article>
+        <label for="collapse1">列表1</label>
+        <p>内容1<br/>内容2<br/>内容3<br/>内容4</p>
+    </article>
+    <article>
+        <label for="collapse2">列表2</label>
+        <p>内容1<br/>内容2<br/>内容3<br/>内容4</p>
+    </article>
+    <article>
+        <label for="collapse3">列表3</label>
+        <p>内容1<br/>内容2<br/>内容3<br/>内容4</p>
+    </article>
+</div>
+</body>
+</html>

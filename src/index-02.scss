@@ -1,0 +1,544 @@
+/* 变换 */
+.transform-ex {
+  .demo1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //position: absolute;
+    //top: 20px;
+    //left: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: #f66;
+    font-size: 20px;
+    color: #fff;
+    &.transform-1 {
+      transform: translate(150px, 0) rotate(45deg);
+    }
+    &.transform-2 {
+      transform: rotate(45deg) translate(150px, 0);
+    }
+  }
+}
+
+.heart-shape {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform: rotate(45deg);
+  background-color: #f66;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #f66;
+  }
+
+  &::before {
+    transform: translateX(-50%);
+  }
+  &::after {
+    transform: translateY(-50%);
+  }
+}
+
+.onepx-border {
+  width: 200px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+  color: #f66;
+  box-sizing: border-box;
+  & + .onepx-border {
+    margin-top: 10px;
+  }
+  &.normal {
+    border: 1px solid #f66;
+  }
+  &.thin {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 1px solid #f66;
+      width: 200%;
+      height: 200%;
+      transform: scale(.5);
+      transform-origin: left top; /*变换的基点（中心点）*/
+    }
+  }
+}
+
+.flip-content {
+  li {
+    list-style-type: none;
+    position: relative;
+    width: 121px;
+    height: 51px;
+    line-height: 51px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #f66;
+    &::before,
+    &::after {
+      position: absolute;
+      content: "";
+      background-color: #66f;
+    }
+    & + li {
+      margin-top: 10px;
+    }
+    &.x-axis {
+      transform: scale(1, -1);/*沿x轴翻转*/
+      &::after {
+        top: 25px; // top：0在最底部
+        left: 0;
+        width: 100%;
+        height: 1px;
+      }
+    }
+    &.y-axis {
+      transform: scale(-1, 1);/*沿y轴翻转*/
+      &::after {
+        top: 0;
+        left: 60px; // left：0在最右边
+        width: 1px;
+        height: 100%;
+      }
+    }
+    &.reverse {
+      transform: scale(-1, -1);/*同时沿x轴和y轴翻转*/
+      &::before {
+        top: 25px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+      }
+      &::after {
+        top: 0;
+        left: 60px;
+        width: 1px;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@mixin typing($count: 0, $duration: 0, $delay: 0) {
+  overflow: hidden;
+  border-right: 1px solid transparent;
+  width: #{$count + 1}ch;
+  font-family: Consolas, Monaco, monospace;
+  white-space: nowrap;
+  animation: typing #{$duration}s steps($count + 1) #{$delay}s infinite backwards,
+    caret 500ms steps(1) #{$delay}s infinite forwards;
+}
+.auto-typing {
+  margin: auto;
+  font-weight: bold;
+  font-size: 30px;
+  color: #09f;
+  @include typing(52, 5);
+}
+@keyframes typing {
+  from {
+    width: 0;
+  }
+}
+@keyframes caret {
+  50% {
+    border-right-color: currentColor; /*使用该关键字的元素的（或其最近父元素）color属性的颜色值*/
+  }
+}
+
+.step-anim {
+  width: 76px;
+  height: 125px;
+  background: url("./step.jpeg") no-repeat left center;
+  border: 1px solid #333;
+  animation: step-move infinite 2s steps(6, start);
+}
+@keyframes step-move {
+  0% {
+    background-position-x: -22%;
+  }
+  100% {
+    background-position-x: 100%;
+  }
+}
+
+/* 阴影 */
+.shadow {
+  border: 1px solid #f66;
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 0 0 10px #f66;
+}
+.shadow-border {
+  margin: 31px;
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 0 0 10px #f66, 0 0 0 20px #66f;
+}
+
+.aside-shadow {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  width: 500px;
+  li {
+    list-style-type: none;
+    border: 1px solid #f66;
+    width: 100px;
+    height: 100px;
+    &:not(:nth-child(4n-3)) {
+      margin-left: 20px;
+    }
+    &:nth-child(n+5) {
+      margin-top: 20px;
+    }
+    &.left {
+      box-shadow: -10px 0 5px -5px #f66;
+    }
+    &.up {
+      box-shadow: 0 -10px 5px -5px #f66;
+    }
+    &.right {
+      box-shadow: 10px 0 5px -5px #f66;
+    }
+    &.down {
+      box-shadow: 0 10px 5px -5px #f66;
+    }
+    &.left-up {
+      box-shadow: -10px 0 5px -5px #f66, 0 -10px 5px -5px #f66;
+    }
+    &.left-down {
+      box-shadow: -10px 0 5px -5px #f66, 0 10px 5px -5px #f66;
+    }
+    &.right-up {
+      box-shadow: 10px 0 5px -5px #f66, 0 -10px 5px -5px #f66;
+    }
+    &.right-down {
+      box-shadow: 10px 0 5px -5px #f66, 0 10px 5px -5px #f66;
+    }
+  }
+}
+
+$rainbow: 0 0 0 8px #f66 inset,
+  0 0 0 16px #f90 inset,
+  0 0 0 24px #ff3 inset,
+  0 0 0 32px #3c9 inset,
+  0 0 0 40px #9c3 inset,
+  0 0 0 48px #09f inset,
+  0 0 0 56px #66f inset;
+.rainbow-bar {
+  width: 250px;
+  &.bar-1 {
+    overflow: hidden;
+    position: relative;
+    height: 125px;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 100%;
+      width: 100%;
+      height: 200%;
+      box-shadow: $rainbow;
+    }
+  }
+  &.bar-2 {
+    margin: 125px 0 0 50px;
+    border-radius: 100%;
+    height: 250px;
+    box-shadow: $rainbow;
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  }
+}
+
+.article-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+  width: 250px;
+  height: 250px;
+  line-height: 50px;
+  border-radius: 100%;
+  background-color: #f66;
+  box-shadow: 0 0 50px 5px rgba(#000, .2) inset;
+  text-shadow: 5px 5px 10px rgba(#000, .5);
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  .left {
+    border-top: 3px solid #fff;
+    text-indent: -1em;
+  }
+  .right {
+    text-indent: 2em;
+    font-size: 40px;
+  }
+}
+
+.img-cliper {
+  overflow: hidden;
+  position: relative;
+  img {
+    display: block;
+    width: 800px;
+  }
+  i {
+    position: absolute;
+    left: 50px;
+    top: 30px;
+    border-radius: 100%;
+    width: 100px;
+    height: 50px;
+    box-shadow: 0 0 0 9999px rgba(#000, .5);
+  }
+}
+
+/* 滤镜 */
+.filter-block {
+  position: relative;
+  width: 400px;
+  height: 225px;
+  background: url("https://jowayyoung.github.io/static/img/icss/car.jpg") center/cover;
+  filter: grayscale(1);
+  //.mourning-mode {
+  //  width: 400px;
+  //  filter: grayscale(1);
+  //}
+  &::before {
+    z-index: -1;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    content: "";
+    display: block;
+    width: 400px;
+    height: 225px;
+    background: url("https://jowayyoung.github.io/static/img/icss/car.jpg") center/cover;
+  }
+}
+
+/*贴顶背景*/
+$bg: "https://jowayyoung.github.io/static/img/icss/mountain.jpg";
+.pasted-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+  background: #000 url($bg) no-repeat center top/auto 300px;
+  text-shadow: 2px 2px 5px rgba(#000, .5);
+  font-weight: bold;
+  font-size: 50px;
+  color: #fff;
+}
+
+$bg-1: "https://jowayyoung.github.io/static/img/icss/ab-1.jpg";
+$bg-2: "https://jowayyoung.github.io/static/img/icss/ab-2.jpg";
+$bg-3: "https://jowayyoung.github.io/static/img/icss/mountain.jpg";
+$bg-4: "https://jowayyoung.github.io/static/img/icss/logo.svg";
+.spliced-bg {
+  width: 300px;
+  height: 200px;
+  background-color: #3c9;
+  background-image: url($bg-1), url($bg-2);
+  background-repeat: no-repeat, no-repeat;
+  background-position: left, right;
+  background-size: auto 200px, auto 200px;
+}
+.overlying-bg {
+  margin-top: 20px;
+  width: 300px;
+  height: 200px;
+  background-color: #3c9;
+  background-image: url($bg-4), url($bg-3);
+  background-position: left, center;
+  background-repeat: repeat, no-repeat;
+  background-size: auto 80px, auto 200px;
+}
+
+$bg-clip: "https://jowayyoung.github.io/static/img/icss/mountain.jpg";
+.hollow-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background: #000 url($bg-clip) no-repeat center top/auto 300px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 2px 2px 5px rgba(#000, .5);
+  font-weight: bold;
+  font-size: 80px;
+  color: transparent;
+}
+
+.elem {
+  width: 300px;
+  height: 300px;
+  //background-image: linear-gradient(to bottom, #f66 0, #66f 20%, #f90 40%, #09f 60%, #9c3 80%, #3c9 100%);
+  //background-image: radial-gradient(ellipse closest-side at center, #f66, #66f);
+  //background-image: radial-gradient(100px 100px, #f66, #90f, #66f);
+  background-image: conic-gradient(#f66, #66f);
+}
+
+.gradient-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background: linear-gradient(135deg, #f66, #f90, #3c9, #09f, #66f) left center/400% 100%; // right bottom
+  font-size: 100px;
+  font-weight: bold;
+  color: #fff;
+  animation: move 10s infinite;
+}
+@keyframes move {
+  0%,
+100% {
+    background-position-x: left;
+  }
+  50% {
+    background-position-x: right;
+  }
+}
+
+.gradient-text {
+  background-image: linear-gradient(90deg, #f66, #f90);
+  -webkit-background-clip: text;
+  background-clip: text;
+  line-height: 60px;
+  font-size: 60px;
+  color: transparent;
+  animation: hue 5s linear infinite;
+}
+@keyframes hue {
+  from {
+    filter: hue-rotate(0);
+  }
+  to {
+    filter: hue-rotate(-1turn);
+  }
+}
+
+.blink-text {
+  width: 100%;
+  background-image: linear-gradient(-45deg, #f66 30%, #fff 50%, #f66 70%); // top left
+  background-size: 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-blend-mode: hard-light;
+  font-weight: bold;
+  font-size: 20px;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shine 2s infinite;
+}
+@keyframes shine {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0;
+  }
+}
+
+.square-bg {
+  width: 500px;
+  height: 300px;
+  background-image: linear-gradient(45deg, #eee 25%, transparent 25% 75%, #eee 75%),
+    linear-gradient(45deg, #eee 25%, transparent 25% 75%, #eee 75%);
+  background-position: 0 0, 20px 20px;
+  background-size: 40px 40px;
+  //background-color: #f90;
+  //background: linear-gradient(45deg, #4253b5 25%, #1e24a287 25%, #b33f3f8a 75%, #eee 75%) repeat 0 0/40px 40px;
+}
+
+.grid-bg {
+  width: 500px;
+  height: 300px;
+  background-image: linear-gradient(0deg, #fff 0 5%, transparent 5% 100%),
+    linear-gradient(90deg, #fff 5%, transparent 5%);
+  background-position: 0 0, 20px 20px;
+  background-size: 20px 20px;
+  background-color: #3c9
+}
+
+.pie-chart {
+  width: 300px;
+  height: 300px;
+  border-radius: 100%;
+  background-image: conic-gradient(#f66 0 25%, #66f 25% 30%, #f90 30% 55%, #09f 55% 70%, #3c9 70%);
+}
+
+.test-mask {
+  width: 100px;
+  height: 100px;
+  background-color: #8cffa0;
+
+  -webkit-mask-image: url(https://mdn.github.io/css-examples/masking/MDN.svg),url(https://mdn.github.io/css-examples/masking/star.svg);
+  mask-image: url(https://mdn.github.io/css-examples/masking/MDN.svg),url(https://mdn.github.io/css-examples/masking/star.svg);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+}
+
+$mask-bg: "https://jowayyoung.github.io/static/img/icss/mountain.jpg";
+$mask-text: "https://jowayyoung.github.io/static/img/icss/snow.jpg";
+$logo: "./netnease.svg"; // "https://jowayyoung.github.io/static/img/icss/logo-netease.svg";
+.mask-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  height: 300px;
+  &::after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+    background: url($mask-bg) no-repeat center/cover;
+    filter: blur(10px);
+  }
+  div {
+    position: relative;
+    z-index: 9;
+    width: 600px;
+    height: 300px;
+    background: url($mask-text) left center/150% auto;
+    -webkit-mask-image: url($logo);
+    -webkit-mask-size: cover;
+    -webkit-mask-position: center;
+    mask: url($logo) center/cover;
+    animation: mask-move 10s infinite;
+  }
+}
+@keyframes mask-move {
+  0% {
+    background-position-x: 0;
+  }
+  50% {
+    background-position-x: 100%;
+  }
+}

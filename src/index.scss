@@ -1,0 +1,294 @@
+/*变量控件*/
+$ratio: 2;
+$box-width: 600px;
+$box-height: 400px;
+$box-bg: "https://jowayyoung.github.io/static/img/icss/gz.jpg";
+$outbox-w: $box-width * $ratio;
+$outbox-h: $box-height * $ratio;
+.magnifier {
+  --x: 0;
+  --y: 0;
+  overflow: hidden;
+  position: relative;
+  width: $box-width;
+  height: $box-height;
+  background: url($box-bg) no-repeat center/100% 100%;
+  cursor: pointer;
+
+  &::before {
+    --size: 0;
+    $scale-x: calc(var(--size) / 2 - var(--x) * #{$ratio});
+    $scale-y: calc(var(--size) / 2 - var(--y) * #{$ratio});
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: #333 url($box-bg) no-repeat $scale-x $scale-y/$outbox-w $outbox-h;
+    border-radius: 100%;
+    box-shadow: 1px 1px 3px rgba(#000, .5);
+    transform: translate(-50%, -50%);
+    will-change: left, top;
+  }
+
+  &:hover::before {
+    --size: 100px;
+  }
+}
+
+.dynamic-scroll-bg {
+  --scrolly: 250;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #66f;
+  width: 400px;
+  height: 400px;
+  main {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    div {
+      padding: 300px 20px 50px;
+    }
+    p {
+      line-height: 1.2;
+      text-align: justify;
+      text-indent: 2em;
+    }
+  }
+  header {
+    --angle: calc(var(--scrolly) * 2deg);
+    --size: calc(1500px - var(--scrolly) * 2px);
+    --x: calc(var(--size) / 2 * -1);
+    --y: calc(var(--scrolly) * -1px);
+    --ratio: calc(50% - var(--scrolly) / 20 * 1%);
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    margin: 0 0 var(--y) var(--x);
+    border-radius: var(--ratio);
+    width: var(--size);
+    height: var(--size);
+    background: #33cc99;
+    filter: hue-rotate(var(--angle));
+    animation: rotate 5s linear infinite;
+  }
+}
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/*表单控件*/
+.auth {
+  overflow: hidden;
+  border-radius: 2px;
+  width: 320px;
+  background-color: #f0f0f0;
+
+  .auth-title {
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    height: 40px;
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      transition: all 300ms;
+      cursor: pointer;
+      &:hover {
+        color: #66f;
+      }
+    }
+    em {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      border-radius: 1px;
+      width: 50%;
+      height: 2px;
+      background-color: #f66;
+      transition: all 300ms cubic-bezier(.4, .4, .25, 1.35);
+    }
+  }
+  .auth-form {
+    display: flex;
+    width: 200%;
+    height: 250px;
+    transition: all 300ms cubic-bezier(.4, .4, .25, 1.35);
+    form {
+      flex: 1;
+      padding: 20px;
+    }
+    div {
+      display: flex;
+      flex-direction: column-reverse;
+      & + div {
+        margin-top: 10px;
+      }
+    }
+    input {
+      box-sizing: border-box;
+      padding: 10px;
+      border: 1px solid #e9e9e9;
+      border-radius: 2px;
+      width: 100%;
+      height: 40px;
+      outline: none;
+      transition: all 300ms;
+      &:focus:valid {
+        border-color: #09f;
+      }
+      &:focus:invalid {
+        border-color: #f66;
+      }
+      &:not(:placeholder-shown) + label {
+        height: 30px;
+        opacity: 1;
+        font-size: 14px;
+      }
+    }
+    label {
+      overflow: hidden;
+      padding: 0 10px;
+      height: 0;
+      opacity: 0;
+      line-height: 30px;
+      font-weight: bold;
+      font-size: 0;
+      transition: all 300ms;
+    }
+    button {
+      margin-top: 10px;
+      border: none;
+      border-radius: 2px;
+      width: 100%;
+      height: 40px;
+      outline: none;
+      color: #fff;
+      background-color: #09f;
+      cursor: pointer;
+      transition: all 300ms;
+    }
+  }
+}
+#login-btn:checked {
+  & ~ .auth-title {
+    label:nth-child(1) {
+      font-weight: bold;
+      color: #f66;
+    }
+    em {
+      transform: translate(0, 0);
+    }
+  }
+  & ~ .auth-form {
+    transform: translate(0, 0);
+  }
+}
+#logon-btn:checked {
+  & ~ .auth-title {
+    label:nth-child(2) {
+      font-weight: bold;
+      color: #f66;
+    }
+    em {
+      transform: translate(160px ,0);
+    }
+  }
+  & ~ .auth-form {
+    transform: translate(-50%, 0);
+  }
+}
+
+/*切换控件*/
+.accordion {
+  display: flex;
+  width: 600px;
+  height: 200px;
+
+  li {
+    list-style-type: none;
+    flex: 1;
+    cursor: pointer;
+    transition: all 300ms;
+
+    &:nth-child(1) {
+      background-color: #f66;
+    }
+
+    &:nth-child(2) {
+      background-color: #66f;
+    }
+
+    &:nth-child(3) {
+      background-color: #3c9;
+    }
+
+    &:nth-child(4) {
+      background-color: #9c3;
+    }
+
+    &:nth-child(5) {
+      background-color: #09f;
+    }
+
+    &:nth-child(6) {
+      background-color: #f90;
+    }
+
+    &:hover {
+      flex: 2;
+      background-color: #ccc;
+    }
+  }
+}
+
+.v-accordion {
+  height: 300px;
+
+  article {
+    cursor: pointer;
+
+    & + article {
+      margin-top: 5px;
+    }
+  }
+
+  input {
+    &:nth-child(1):checked ~ article:nth-of-type(1) p,
+    &:nth-child(2):checked ~ article:nth-of-type(2) p,
+    &:nth-child(3):checked ~ article:nth-of-type(3) p {
+      border-bottom-width: 1px;
+      max-height: 600px;
+    }
+  }
+
+  label {
+    display: block;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #f66;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  p {
+    margin: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    border: 1px solid #f66;
+    border-top: none;
+    border-bottom-width: 0;
+    max-height: 0;
+    line-height: 30px;
+    transition: all 300ms;
+  }
+}
